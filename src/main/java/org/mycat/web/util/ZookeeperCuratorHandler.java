@@ -17,6 +17,7 @@ import org.apache.curator.framework.state.ConnectionStateListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
+import org.mycat.web.model.BaseZkNode;
 import org.mycat.web.task.common.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ public final class ZookeeperCuratorHandler {
 		private static ZookeeperCuratorHandler instance = new ZookeeperCuratorHandler();
 	}
 
-	private ZookeeperCuratorHandler() {
+	private ZookeeperCuratorHandler() {		
 	}
 
 	public static ZookeeperCuratorHandler getInstance() {
@@ -65,7 +66,8 @@ public final class ZookeeperCuratorHandler {
 						.connectionTimeoutMs(3000).canBeReadOnly(false)
 						.defaultData("".getBytes("UTF-8"))
 						.retryPolicy(new ExponentialBackoffRetry(1000, 3))
-						.namespace(nameSpace).build();
+						.namespace(nameSpace)     //deleted by袁文华
+						.build();
 				listener = new StateListener();
 				client.getConnectionStateListenable().addListener(listener);
 				client.start();
@@ -386,5 +388,39 @@ public final class ZookeeperCuratorHandler {
 		reMap.put("rows", rows);
 		reMap.put("total", forPath.size());
 		return reMap;
+	}
+	
+	public <T> List<T> getChildNode(String path,Class<T> entity){
+		Preconditions.checkNotNull(client, errorWithNullClient);
+		//Map<String, Object> reMap=new HashMap<String, Object>();
+		Stat stat=null;
+		try {
+			stat = client.checkExists().forPath(path);
+		} catch (Exception e) {
+			LOG.error("Path is not exist.",e);
+		}
+		if(stat==null)
+			return null;
+		List<String> forPath = null;
+		try {
+			forPath = client.getChildren().forPath(path);
+		} catch (Exception e) {
+			LOG.error("getChildNode error :",e);
+		}
+		List<T> list = new ArrayList<T>();		
+		for (String s: forPath) {			
+			String nodeData = getNodeData(path+"/"+s);
+			if(StringUtils.isEmpty(nodeData))
+				nodeData = "{}";
+			//	continue;			
+			T t = JSONArray.parseObject(nodeData, entity);
+			if (t instanceof BaseZkNode){
+				((BaseZkNode)t).setGuid(s);
+			}
+			list.add(t);
+		}
+		//reMap.put("rows", rows);
+		//reMap.put("total", forPath.size());
+		return list;
 	}
 }

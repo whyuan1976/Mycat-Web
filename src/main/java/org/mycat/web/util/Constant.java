@@ -20,11 +20,15 @@ public final class Constant {
     /*****************zookeeper配置节点路径*******************/
     
     /** 特定中心  */
-    public static final String MYCAT_ZONES = "/zones";
+    public static final String MYCAT_ZONES = "/mycat-zones";
+
+    public static final String MYCAT_LBSES = "/mycat-lbs";
     public static final String MYCAT_ZONE= MYCAT_ZONES + "/zone-";
+    public static final String MYCAT_CLUSTERS = "/mycat-cluster";
     public static final String MYCAT_NODES = "/clusters";
     public static final String MYCAT_NODE = MYCAT_NODES + "/cluster-";
-    public static final String MYCAT_SERVERS = "/servers";
+    public static final String MYCAT_SERVERS ="/mycat-nodes";
+    public static final String MYCAT_MYSQL_GROUPS ="/mycat-mysqlgroup";
     public static final String MYCAT_SERVER = MYCAT_SERVERS + "/server-";
     public static final String MYCAT_HOSTS = "/hosts";
     public static final String MYCAT_HOST = MYCAT_HOSTS + "/host-";

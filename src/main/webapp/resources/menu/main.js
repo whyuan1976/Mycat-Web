@@ -8,6 +8,16 @@ function initUserMenu(){
      }});
 }
 
+function setZone(zoneid,zones){
+
+	zoneid.empty();
+	$.each(zones,function(n,data) {		
+		 zoneid.append("<option value=\""+data.guid+"\">"+data.name+"</option>");
+	})
+	
+}
+
+
 function setMenu(menuid,menus){
 	var menuhtm = [];
 	$.each(menus,function(n,menudata) {

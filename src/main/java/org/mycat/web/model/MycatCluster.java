@@ -1,18 +1,11 @@
 package org.mycat.web.model;
 
 
-public class MycatCluster {
+public class MycatCluster extends BaseZkNode{
 	
-	private String guid;
 	private String zoneName;
 	private String clusterName;
 	
-	public String getGuid() {
-		return guid;
-	}
-	public void setGuid(String guid) {
-		this.guid = guid;
-	}
 	public String getZoneName() {
 		return zoneName;
 	}

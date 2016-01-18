@@ -1,6 +1,0 @@
-BuildTime  20151202-0006
-GitVersion   null
-MavenVersion 1.0-SNAPSHOT
-GitUrl https://github.com/MyCATApache/Mycat-Web.git
-MyCatSite http://mycat.io
-QQGroup 106088787

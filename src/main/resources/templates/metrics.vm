@@ -1,0 +1,86 @@
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            系统监控
+            <small>Preview page</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Widgets</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box  bg-aqua">
+                <span class="info-box-icon"><i class="fa fa-hdd-o"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">内存使用情况</span>
+                  <span class="info-box-number">{{stat['mem.free']/1024/8 | number:0}} M / {{stat.mem/1024/8 | number:0}} M</span>
+                  <div class="progress">
+                    <div class="progress-bar" style="width: {{stat['mem.free']/stat.mem*100}}%"></div>
+                  </div>
+                  <span class="progress-description">
+                    
+                  </span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-cog"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-number">CPU:{{stat.processors}}</span>
+                  <span class="info-box-number">系统负载:{{stat['systemload.average']}}</span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa fa-hdd-o"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">堆信息：{{stat['heap']/1024/8}}</span>
+                  <span class="info-box-text">已分配:{{stat['heap.committed']/1024/8}}</span>
+                  <span class="info-box-text">初始大小:{{stat['heap.init']/1024/8}}</span>
+                  <span class="info-box-text">已使用:{{stat['heap.used']/1024/8 | number:0.}}</span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            
+            
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-hdd-o"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">线程数：{{stat['thread']}}</span>
+                  <span class="info-box-text">Daemon线程:{{stat['threads.daemon']}}</span>
+                  <span class="info-box-text">线程最大值:{{stat['threads.peak']}}</span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            
+            
+		  </div><!-- /.row -->
+	     </section>
+
+	  
+
+		<script>
+		var app = angular.module('myApp', ['ngResource']);
+		app.controller('myCtrl', function($scope,$http) {
+			$http.get('./metrics')
+				.success(
+					function(response)
+					{
+						$scope.stat = response;					//统计信息										
+					}
+				);
+		});
+			
+		</script>        

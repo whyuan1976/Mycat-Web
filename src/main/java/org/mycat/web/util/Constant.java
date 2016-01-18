@@ -21,7 +21,6 @@ public final class Constant {
     
     /** 特定中心  */
     public static final String MYCAT_ZONES = "/mycat-zones";
-
     public static final String MYCAT_LBSES = "/mycat-lbs";
     public static final String MYCAT_ZONE= MYCAT_ZONES + "/zone-";
     public static final String MYCAT_CLUSTERS = "/mycat-cluster";
@@ -41,5 +40,17 @@ public final class Constant {
     /** mysql数据库组 */
     public static final String MYCAT_MYSQLGROUP="/mysqlgroup-";
     
+    
+
+    public static final String MENU_TYPE_ZONE = "1";
+    public static final String MENU_TYPE_CLUSTER_GROUP = "2";
+    public static final String MENU_TYPE_CLUSTER_NODE = "3";
+    public static final String MENU_TYPE_HOST_GROUP = "4";	
+    public static final String MENU_TYPE_HOST_NODE = "5";
+    public static final String MENU_TYPE_PROJECT_GROUP = "6";
+	public static final String MENU_TYPE_PROJECT_NODE = "7";
+	public static final String MENU_TYPE_NODE = "8";	
+	public static final String MENU_TYPE_LBS = "9";	
+	
     
 }

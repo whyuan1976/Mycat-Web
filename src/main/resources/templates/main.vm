@@ -1,0 +1,33 @@
+#parse("./menu.vm")
+
+	  	
+      <!-- Content Wrapper. Contains page content --> 
+      <div class="content-wrapper" style="min-height: 633px;">
+      <div ng-view>
+#if ($content)
+
+#parse("./${content}.vm")
+#end
+ </div>
+	  </div>
+	  
+<script>
+var phonecatApp = angular.module('myApp', [
+  'ngRoute'
+  ]);
+phonecatApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/phones', {
+        templateUrl: 'partials/phone-list.html',
+        controller: 'PhoneListCtrl'
+      }).
+      when('/phones/:phoneId', {
+        templateUrl: 'partials/phone-detail.html',
+        controller: 'PhoneDetailCtrl'
+      }).
+      otherwise({
+        redirectTo: '/zones/hello.html'
+      });
+  }]);
+</script>	  

@@ -16,5 +16,5 @@
        <!-- <context:property-placeholder location="classpath:iceclient.properties" file-encoding="UTF-8"/> -->
        <!-- <context:component-scan base-package="io.mycat.ep" /> -->
        <context:component-scan base-package="org.mycat.web" />
-           
+  
 </beans>

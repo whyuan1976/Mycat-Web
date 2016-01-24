@@ -17,12 +17,9 @@
 		<mvn.jdbc.password></mvn.jdbc.password>
 		<mvn.logpath>./</mvn.logpath>
 		
-		
-		
-		
-		
-		
-		
+		<mybatis.version>3.2.8</mybatis.version>
+		<mybatis-spring.version>1.2.2</mybatis-spring.version>
+		<sqlite-jdbc.version>3.8.11.2</sqlite-jdbc.version>		
 		
 		<mycat.ep.version>1.0.0-SNAPSHOT</mycat.ep.version>
 		<log4j2.version>2.5</log4j2.version>
@@ -86,7 +83,17 @@
 			<version>2.0.1</version>
 		</dependency>		
 		
-		
+			<!-- mybatis lib -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis-spring.version}</version>
+			</dependency>		
 	
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -124,7 +131,25 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>	
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>		
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+<dependency>
+	<groupId>hsqldb</groupId>
+	<artifactId>hsqldb</artifactId>
+	<version>1.8.0.10</version>
+</dependency>
+
+		
+			
 <!-- 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-actuator</artifactId>
@@ -167,7 +192,6 @@
 		  <groupId>org.springframework.boot</groupId> 
 		  <artifactId>spring-boot-starter-security</artifactId> 
 		 </dependency> -->
-		
 		
 		
 		<!-- Log4j 2.x 日志 -->

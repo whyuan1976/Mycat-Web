@@ -19,19 +19,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:/applicationContext.xml"})
+/**
+ * 测试Zookeeper基础功能
+ * 
+ * 
+ * @author whyuan
+ *
+ */
+
+
+
+
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class ZookeeperTest {
-	@Autowired
-	MycatService mycatService;
-	@Autowired
-	ZookeeperService zookeeperService;
+
 	
 	
 	
 	@BeforeClass
 	public static void init(){
-		//ZookeeperCuratorHandler.getInstance().connect("127.0.0.1:2181", ZookeeperService.MYCAT_NAME_SPACE);
+		
 		
 	}
 	
@@ -45,40 +52,24 @@ public class ZookeeperTest {
 	
 	@Test
 	public void testCheckConnect(){
-		Assert.assertTrue("Zookeeper can't connect.", zookeeperService.isConnected());
-	}
-	
-	
-	@Test
-	public void testGetZoneInfo(){
+
+		ZookeeperCuratorHandler zk = ZookeeperCuratorHandler.getInstance();
+		//单节点登陆
+		zk.connect("127.0.0.1:2181", ZookeeperService.MYCAT_NAME_SPACE);
+		Assert.assertTrue("Zookeeper can't connect.", zk.isConnected());
+		zk.disconnect();
+		Assert.assertFalse("Zookeeper can't disconnect.", zk.isConnected());
 		
-		List<MycatZone> map = mycatService.getAllZones();
-		Assert.assertTrue("Zone data has no found.", map != null && map.size() > 0);
-		for (MycatZone zone: map){
-			System.out.println(JSONObject.toJSONString(zone)+zone.getGuid());
-		}
-	}
-	
-	@Test
-	public void testMycatCluster(){
+		//多节点登陆
+		zk.connect("127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183", ZookeeperService.MYCAT_NAME_SPACE);
+		Assert.assertTrue("Zookeeper can't connect.", zk.isConnected());
+		zk.disconnect();
 		
-		List<MycatCluster> map = mycatService.getMycatCluster("wh");
-		Assert.assertTrue("MycatCluster data has no found.", map != null && map.size() > 0);
-		for (MycatCluster obj: map){
-			System.out.println(JSONObject.toJSONString(obj));
-		}
+		//异步连接 待实现
+		//重试异步连接 待实现   重试n次 无限重试
 	}
 	
-	@Test
-	public void testMycatLB(){
+	
 		
-		List<MycatLB> map = mycatService.getLBS("wh");
-		Assert.assertTrue("LB data has no found.", map != null && map.size() > 0);
-		for (MycatLB obj: map){
-			System.out.println(JSONObject.toJSONString(obj));
-		}
-	}
-	
-	
 	
 }
